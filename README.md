@@ -2,7 +2,7 @@
 
 Run Stable Diffusion on your machine with a nice UI without any hassle!
 
-For AMD GPUs comaptible with [ROCm platform](https://rocm.docs.amd.com/en/latest/).
+For AMD GPUs compatible with [ROCm platform](https://rocm.docs.amd.com/en/latest/).
 
 ## Setup & Usage
 
