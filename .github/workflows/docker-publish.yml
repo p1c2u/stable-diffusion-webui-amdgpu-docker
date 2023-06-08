@@ -19,27 +19,23 @@ jobs:
     runs-on: ubuntu-latest
     name: ${{ matrix.profile }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Docker meta
         id: docker_meta
-        uses: docker/metadata-action@v1
+        uses: docker/metadata-action@v4
         with:
           images: |
             p1c2u/stable-diffusion-webui-amdgpu-docker
-          tag-semver: |
-            {{version}}-${{matrix.profile}}
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+          tags: |
+            type=semver,pattern={{version}}-${{matrix.profile}}
       - name: Login to DockerHub
         if: github.event_name != 'pull_request'
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and push
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v4
         with:
           context: ./services/${{matrix.profile}}/
           push: ${{ github.event_name != 'pull_request' }}
