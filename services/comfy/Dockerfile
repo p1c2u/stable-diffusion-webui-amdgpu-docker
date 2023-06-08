@@ -38,7 +38,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 COPY . /docker/
 RUN cp /docker/extra_model_paths.yaml ${ROOT}
 
-ENV NVIDIA_VISIBLE_DEVICES=all
 ENV PYTHONPATH="${PYTHONPATH}:${PWD}" CLI_ARGS=""
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]

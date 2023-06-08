@@ -3,7 +3,7 @@ RUN apk add --no-cache aria2
 RUN aria2c -x 5 --dir / --out wheel.whl 'https://github.com/AbdBarho/stable-diffusion-webui-docker/releases/download/6.0.0/xformers-0.0.21.dev544-cp310-cp310-manylinux2014_x86_64-pytorch201.whl'
 
 
-FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
+FROM rocm/pytorch:2rocm5.4.2_ubuntu20.04_py3.8_pytorch_2.0.0_preview
 
 ENV DEBIAN_FRONTEND=noninteractive PIP_EXISTS_ACTION=w PIP_PREFER_BINARY=1
 
@@ -42,7 +42,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
 
 COPY . /docker/
 
-ENV NVIDIA_VISIBLE_DEVICES=all
 ENV PYTHONUNBUFFERED=1 PRELOAD=false HF_HOME=/root/.cache/huggingface CONFIG_DIR=/data/config/invoke CLI_ARGS=""
 EXPOSE 7860
 

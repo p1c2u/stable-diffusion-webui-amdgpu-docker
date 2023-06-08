@@ -35,8 +35,8 @@ RUN --mount=type=cache,target=/var/cache/apt \
 
 RUN --mount=type=cache,target=/cache --mount=type=cache,target=/root/.cache/pip \
   aria2c -x 5 --dir /cache --out torch-2.0.1-cp310-cp310-linux_x86_64.whl -c \
-  https://download.pytorch.org/whl/cu118/torch-2.0.1%2Bcu118-cp310-cp310-linux_x86_64.whl && \
-  pip install /cache/torch-2.0.1-cp310-cp310-linux_x86_64.whl torchvision --index-url https://download.pytorch.org/whl/cu118
+  https://download.pytorch.org/whl/rocm5.4.2/torch-2.0.1%2Brocm5.4.2-cp310-cp310-linux_x86_64.whl && \
+  pip install /cache/torch-2.0.1-cp310-cp310-linux_x86_64.whl torchvision --index-url https://download.pytorch.org/whl/rocm5.4.2
 
 
 
@@ -88,8 +88,7 @@ RUN \
   git config --global --add safe.directory '*'
 
 WORKDIR ${ROOT}
-ENV NVIDIA_VISIBLE_DEVICES=all
-ENV CLI_ARGS=""
+ENV CLI_ARGS="--skip-torch-cuda-test"
 EXPOSE 7860
 ENTRYPOINT ["/docker/entrypoint.sh"]
 CMD python -u webui.py --listen --port 7860 ${CLI_ARGS}
